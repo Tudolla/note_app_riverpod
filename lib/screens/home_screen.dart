@@ -7,7 +7,9 @@ import 'package:note_app_riverpod/common/show_modal.dart';
 import 'package:note_app_riverpod/provider/name_user_provider.dart';
 import 'package:note_app_riverpod/provider/note_provider.dart';
 import 'package:note_app_riverpod/provider/time_now_provider.dart';
+import 'package:note_app_riverpod/screens/splash_screen.dart';
 import 'package:note_app_riverpod/widget/note_card_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final dateTimeProvider = StateNotifierProvider<DateTimeNotifier, DateTime>(
   (ref) => DateTimeNotifier(),
@@ -16,6 +18,12 @@ final dateTimeProvider = StateNotifierProvider<DateTimeNotifier, DateTime>(
 final userNameProvider = StateNotifierProvider<UserNameProvider, String?>(
   (ref) => UserNameProvider(),
 );
+
+Future<void> removeName() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('nameAccount');
+  print('Name removed: ${prefs.getString('nameAccount')}');
+}
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -158,6 +166,51 @@ class _HomePageState extends ConsumerState<HomePage> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _logout(context);
+        },
+        tooltip: "Signout",
+        backgroundColor: Colors.blueGrey.shade300,
+        foregroundColor: Colors.white,
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: const Icon(Icons.logout),
+      ),
     );
+  }
+
+  void _logout(BuildContext context) async {
+    await removeName();
+    // Hiển thị dialog xác nhận
+    bool? confirmLogout = await showDialog<bool>(
+      // ignore: use_build_context_synchronously
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm'),
+          content: const Text('Are you sure, logout?'),
+          actions: [
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () => Navigator.of(context).pop(false),
+            ),
+            TextButton(
+              child: const Text('Signout'),
+              onPressed: () => Navigator.of(context).pop(true),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmLogout == true) {
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const SplashScreen()),
+      );
+    }
   }
 }

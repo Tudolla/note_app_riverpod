@@ -3,6 +3,17 @@ import 'package:lottie/lottie.dart';
 import 'package:note_app_riverpod/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+Future<bool> checkNameExists() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.containsKey('nameAccount');
+}
+
+//
+Future<String?> getName() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString('nameAccount');
+}
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -11,6 +22,24 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    checkNameExists();
+    nameExisted();
+
+    super.initState();
+  }
+
+  void nameExisted() async {
+    String? name = await getName();
+    if (name != null && name.isNotEmpty) {
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    }
+  }
+
   final TextEditingController _nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override

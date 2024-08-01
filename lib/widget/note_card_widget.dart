@@ -59,7 +59,10 @@ class CardNoteWidget extends ConsumerWidget {
                     children: [
                       ListTile(
                         leading: IconButton(
-                          icon: const Icon(Icons.delete_outline),
+                          icon: Icon(
+                            Icons.delete_outline,
+                            color: Colors.red[200],
+                          ),
                           onPressed: () => ref
                               .read(noteProvider)
                               .deleteTask(noteData[getIndex].docID),
@@ -69,6 +72,7 @@ class CardNoteWidget extends ConsumerWidget {
                           noteData[getIndex].title,
                           maxLines: 1,
                           style: TextStyle(
+                            fontWeight: FontWeight.bold,
                             decoration: noteData[getIndex].idDone
                                 ? TextDecoration.lineThrough
                                 : null,
@@ -105,13 +109,13 @@ class CardNoteWidget extends ConsumerWidget {
                               ),
                               Row(
                                 children: [
-                                  const Text(
-                                    'Today',
+                                  Text(
+                                    noteData[getIndex].timeTask,
                                   ),
                                   const SizedBox(
                                     width: 20,
                                   ),
-                                  Text(noteData[getIndex].timeTask),
+                                  Text(noteData[getIndex].dateTask),
                                 ],
                               ),
                             ],

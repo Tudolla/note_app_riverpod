@@ -12,4 +12,9 @@ class UserNameProvider extends StateNotifier<String?> {
 
     state = name;
   }
+
+  Future<bool> checkNameExists() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey('nameAccount');
+  }
 }
