@@ -3,10 +3,10 @@ import 'package:lottie/lottie.dart';
 import 'package:note_app_riverpod/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<bool> checkNameExists() async {
-  final prefs = await SharedPreferences.getInstance();
-  return prefs.containsKey('nameAccount');
-}
+// Future<bool> checkNameExists() async {
+//   final prefs = await SharedPreferences.getInstance();
+//   return prefs.containsKey('nameAccount');
+// }
 
 //
 Future<String?> getName() async {
@@ -24,7 +24,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    checkNameExists();
+    // checkNameExists();
     nameExisted();
 
     super.initState();

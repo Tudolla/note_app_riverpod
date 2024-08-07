@@ -9,21 +9,14 @@ import 'package:note_app_riverpod/provider/note_provider.dart';
 import 'package:note_app_riverpod/provider/time_now_provider.dart';
 import 'package:note_app_riverpod/screens/splash_screen.dart';
 import 'package:note_app_riverpod/widget/note_card_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final dateTimeProvider = StateNotifierProvider<DateTimeNotifier, DateTime>(
-  (ref) => DateTimeNotifier(),
+  (ref) => DateTimeNotifier(DateTime.now()),
 );
 
 final userNameProvider = StateNotifierProvider<UserNameProvider, String?>(
   (ref) => UserNameProvider(),
 );
-
-Future<void> removeName() async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.remove('nameAccount');
-  print('Name removed: ${prefs.getString('nameAccount')}');
-}
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -183,7 +176,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   void _logout(BuildContext context) async {
-    await removeName();
+    // await removeName();
     // Hiển thị dialog xác nhận
     bool? confirmLogout = await showDialog<bool>(
       // ignore: use_build_context_synchronously
