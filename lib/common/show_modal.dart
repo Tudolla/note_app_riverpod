@@ -10,7 +10,6 @@ import 'package:note_app_riverpod/widget/date_time_widget.dart';
 import 'package:note_app_riverpod/widget/radio_widget.dart';
 import 'package:note_app_riverpod/widget/text_field_widget.dart';
 
-// final titleInputProvider = StateProvider<String>((ref)=>)
 class AddNewTaskModal extends ConsumerStatefulWidget {
   const AddNewTaskModal({
     super.key,
@@ -120,17 +119,19 @@ class _AddNewTaskModalState extends ConsumerState<AddNewTaskModal> {
                   ),
                 ),
                 Expanded(
-                    child: RadioWidget(
-                  titleRadio: "play",
-                  color: Colors.purple,
-                  valueInput: 2,
-                )),
+                  child: RadioWidget(
+                    titleRadio: "play",
+                    color: Colors.purple,
+                    valueInput: 2,
+                  ),
+                ),
                 Expanded(
-                    child: RadioWidget(
-                  titleRadio: "work",
-                  color: Colors.blueAccent,
-                  valueInput: 3,
-                )),
+                  child: RadioWidget(
+                    titleRadio: "work",
+                    color: Colors.blueAccent,
+                    valueInput: 3,
+                  ),
+                ),
               ],
             ),
             const SizedBox(
@@ -241,10 +242,7 @@ class _AddNewTaskModalState extends ConsumerState<AddNewTaskModal> {
                               idDone: false,
                             ),
                           );
-                      // titleController.clear();
-                      // descriptionController.clear();
 
-                      // ref.read(radioProvider.notifier).update((state) => 1);
                       Navigator.of(context).pop();
                     },
                     child: const Text("Create"),

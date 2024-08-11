@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:note_app_riverpod/provider/note_provider.dart';
 
-class CardNoteWidget extends ConsumerWidget {
+class CardNoteWidgetSearch extends ConsumerWidget {
   final int getIndex;
-  const CardNoteWidget({
+  final String title;
+  const CardNoteWidgetSearch({
     super.key,
     required this.getIndex,
+    required this.title,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final noteData = ref.watch(fetchNoteProvider);
+    final noteData = ref.watch(searchNoteProvider(title));
     return noteData.when(
       data: (noteData) {
         Color categoryColor = Colors.white;

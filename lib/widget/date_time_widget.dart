@@ -48,7 +48,7 @@ class DateTimeWidget extends ConsumerWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

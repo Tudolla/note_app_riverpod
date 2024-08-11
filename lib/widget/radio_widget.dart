@@ -27,23 +27,24 @@ class _RadioWidgetState extends ConsumerState<RadioWidget> {
 
     return Material(
       child: RadioListTile(
-          activeColor: widget.color,
-          contentPadding: EdgeInsets.zero,
-          title: Transform.translate(
-            offset: const Offset(-22, 0),
-            child: Text(
-              widget.titleRadio,
-              style: TextStyle(
-                color: widget.color,
-                fontFamily: "fontText",
-              ),
+        activeColor: widget.color,
+        contentPadding: EdgeInsets.zero,
+        title: Transform.translate(
+          offset: const Offset(-22, 0),
+          child: Text(
+            widget.titleRadio,
+            style: TextStyle(
+              color: widget.color,
+              fontFamily: "fontText",
             ),
           ),
-          value: widget.valueInput,
-          groupValue: radio,
-          onChanged: (value) {
-            ref.read(radioProvider.notifier).state = value!;
-          }),
+        ),
+        value: widget.valueInput,
+        groupValue: radio,
+        onChanged: (value) {
+          ref.read(radioProvider.notifier).state = value!;
+        },
+      ),
     );
   }
 }

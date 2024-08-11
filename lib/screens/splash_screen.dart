@@ -3,14 +3,8 @@ import 'package:lottie/lottie.dart';
 import 'package:note_app_riverpod/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Future<bool> checkNameExists() async {
-//   final prefs = await SharedPreferences.getInstance();
-//   return prefs.containsKey('nameAccount');
-// }
-
-//
 Future<String?> getName() async {
-  final prefs = await SharedPreferences.getInstance();
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getString('nameAccount');
 }
 
@@ -78,7 +72,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 20),
+                        vertical: 5,
+                        horizontal: 20,
+                      ),
                       backgroundColor: Colors.blueGrey,
                     ),
                     onPressed: () async {
@@ -86,7 +82,9 @@ class _SplashScreenState extends State<SplashScreen> {
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
                         await prefs.setString(
-                            'nameAccount', _nameController.text);
+                          'nameAccount',
+                          _nameController.text,
+                        );
 
                         // ignore: use_build_context_synchronously
                         Navigator.of(context).pushReplacement(

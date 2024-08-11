@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-// final textInputProvider = StateProvider<String>((ref) {
-//   return '';
-// });
-
 class TextFieldWidget extends StatefulWidget {
   final String hintText;
   final int maxLine;
@@ -21,44 +17,39 @@ class TextFieldWidget extends StatefulWidget {
 
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   final FocusNode _focusNode = FocusNode();
-  // late TextEditingController _controller;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _controller = widget.controller;
-  // }
-
-  // @override
-  // void dispose() {
-  //   controller.dispose();
-  //   _focusNode.dispose();
-  //   super.dispose();
-  // }
-
-  void _unfocus() {
-    _focusNode.unfocus();
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade300,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: TextField(
-        autofocus: false,
-        controller: widget.controller,
-        maxLines: widget.maxLine,
-        onSubmitted: (_) => _unfocus,
-        decoration: InputDecoration(
-          enabledBorder: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          hintText: widget.hintText,
+    return GestureDetector(
+      onTap: () {
+        if (_focusNode.hasFocus) {
+          _focusNode.unfocus();
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade300,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: TextField(
+          focusNode: _focusNode,
+          autofocus: false,
+          controller: widget.controller,
+          maxLines: widget.maxLine,
+          decoration: InputDecoration(
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            hintText: widget.hintText,
+          ),
         ),
       ),
     );
